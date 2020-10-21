@@ -1,5 +1,9 @@
 name: Docker Image CI
 
+env:
+  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+  DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
 on:
   push:
     branches: [ main ]
@@ -15,6 +19,8 @@ jobs:
 #amazonlinux
     steps:
     - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Centos 7 image
       run: |
         docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-7 .
