@@ -16,14 +16,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Centos 7 image
-      run: docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile --tag davidhessler/awstoe:centos-7 .
+      run: |
+        docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-7 .
+        docker tag davidhessler/awstoe:centos-7 davidhessler/awstoe:centos-7-$(date +%s)
+        docker push davidhessler/awstoe:centos-7
+        docker push davidhessler/awstoe:centos-7-$(date +%s)
     - name: Build the Centos 8 image
-      run: docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile --tag davidhessler/awstoe:centos-8 .
+      run: docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-8 .
     - name: Build the Ubuntu LTS image
-      run: docker build --build-arg BASE_IMAGE=ubuntu:rolling --file Dockerfile --tag davidhessler/awstoe:ubuntu-lts .
+      run: docker build --build-arg BASE_IMAGE=ubuntu:rolling --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-lts .
     - name: Build the Ubuntu 16 image
-      run: docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile --tag davidhessler/awstoe:ubuntu-xenial .
+      run: docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-xenial .
     - name: Build the Ubuntu 18 image
-      run: docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile --tag davidhessler/awstoe:ubuntu-bionic .
+      run: docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-bionic .
     - name: Build the Amazon Linux 2 image
-      run: docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile --tag davidhessler/awstoe:amazonlinux .
+      run: docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:amazonlinux .
