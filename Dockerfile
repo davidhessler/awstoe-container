@@ -1,0 +1,7 @@
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE}
+
+RUN curl --output awstoe https://awstoe-us-east-1.s3.us-east-1.amazonaws.com/latest/linux/amd64/awstoe \
+    && mv ./awstoe /bin \
+    && chmod a+x /bin/awstoe
