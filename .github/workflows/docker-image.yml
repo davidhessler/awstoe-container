@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+#$(date +%s)
+#amazonlinux
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Centos 7 image
+      run: docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile --tag davidhessler/awstoe:centos-7 .
+    - name: Build the Centos 8 image
+      run: docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile --tag davidhessler/awstoe:centos-8 .
+    - name: Build the Ubuntu LTS image
+      run: docker build --build-arg BASE_IMAGE=ubuntu:rolling --file Dockerfile --tag davidhessler/awstoe:ubuntu-lts .
+    - name: Build the Ubuntu 16 image
+      run: docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile --tag davidhessler/awstoe:ubuntu-xenial .
+    - name: Build the Ubuntu 18 image
+      run: docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile --tag davidhessler/awstoe:ubuntu-bionic .
+    - name: Build the Amazon Linux 2 image
+      run: docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile --tag davidhessler/awstoe:amazonlinux .
