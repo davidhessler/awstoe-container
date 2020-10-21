@@ -21,19 +21,19 @@ jobs:
     - uses: actions/checkout@v2
     - name: Login into Docker Hub
       run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
-    # - name: Build the Centos 7 image
-    #   run: |
-    #     docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-7 .
-    #     docker tag davidhessler/awstoe:centos-7 davidhessler/awstoe:centos-7-$(date +%Y%M%d)
-    #     docker push davidhessler/awstoe:centos-7
-    #     docker push davidhessler/awstoe:centos-7-$(date +%Y%M%d)
-    # - name: Build the Centos 8 image
-    #   run: |
-    #     docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-8 .
-    #     docker tag davidhessler/awstoe:centos-8 davidhessler/awstoe:centos-8-$(date +%Y%M%d)
-    #     docker push davidhessler/awstoe:centos-8
-    #     docker images
-    #     docker push davidhessler/awstoe:centos-8-$(date +%Y%M%d)
+    - name: Build the Centos 7 image
+      run: |
+        docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-7 .
+        docker tag davidhessler/awstoe:centos-7 davidhessler/awstoe:centos-7-$(date +%Y%M%d)
+        docker push davidhessler/awstoe:centos-7
+        docker push davidhessler/awstoe:centos-7-$(date +%Y%M%d)
+    - name: Build the Centos 8 image
+      run: |
+        docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-8 .
+        docker tag davidhessler/awstoe:centos-8 davidhessler/awstoe:centos-8-$(date +%Y%M%d)
+        docker push davidhessler/awstoe:centos-8
+        docker images
+        docker push davidhessler/awstoe:centos-8-$(date +%Y%M%d)
     - name: Build the Ubuntu LTS image
       run: |
         docker build --build-arg BASE_IMAGE=ubuntu:rolling --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-lts .
@@ -41,8 +41,20 @@ jobs:
         docker push davidhessler/awstoe:ubuntu-lts
         docker push davidhessler/awstoe:ubuntu-lts-$(date +%Y%M%d)
     - name: Build the Ubuntu 16 image
-      run: docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-xenial .
+      run: |
+        docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-xenial .
+        docker tag davidhessler/awstoe:ubuntu-xenial davidhessler/awstoe:ubuntu-xenial-$(date +%Y%M%d)
+        docker push davidhessler/awstoe:ubuntu-xenial
+        docker push davidhessler/awstoe:ubuntu-xenial-$(date +%Y%M%d)
     - name: Build the Ubuntu 18 image
-      run: docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-bionic .
+      run: | 
+        docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-bionic .
+        docker tag davidhessler/awstoe:ubuntu-bionic davidhessler/awstoe:ubuntu-bionic-$(date +%Y%M%d)
+        docker push davidhessler/awstoe:ubuntu-bionic
+        docker push davidhessler/awstoe:ubuntu-bionic-$(date +%Y%M%d)
     - name: Build the Amazon Linux 2 image
-      run: docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:amazonlinux .
+      run: | 
+        docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:amazonlinux .
+        docker tag davidhessler/awstoe:amazonlinux davidhessler/awstoe:amazonlinux-$(date +%Y%M%d)
+        docker push davidhessler/awstoe:amazonlinux
+        docker push davidhessler/awstoe:amazonlinux-$(date +%Y%M%d)
