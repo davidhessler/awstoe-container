@@ -30,7 +30,7 @@ jobs:
     - name: Build the Centos 8 image
       run: |
         docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-8 .
-        docker tag davidhessler/awstoe:centos-8 davidhessler/awstoe:centos-7-$(date +%Y%M%d)
+        docker tag davidhessler/awstoe:centos-8 davidhessler/awstoe:centos-8-$(date +%Y%M%d)
         docker push davidhessler/awstoe:centos-8
         docker push davidhessler/awstoe:centos-8-$(date +%Y%M%d)
     - name: Build the Ubuntu LTS image
