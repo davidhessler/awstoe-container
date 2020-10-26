@@ -11,12 +11,8 @@ on:
     branches: [ main ]
 
 jobs:
-
-  build:
-
+  build-centos-7:
     runs-on: ubuntu-latest
-#$(date +%s)
-#amazonlinux
     steps:
     - uses: actions/checkout@v2
     - name: Login into Docker Hub
@@ -27,6 +23,12 @@ jobs:
         docker tag davidhessler/awstoe:centos-7 davidhessler/awstoe:centos-7-$(date +%Y%M%d)
         docker push davidhessler/awstoe:centos-7
         docker push davidhessler/awstoe:centos-7-$(date +%Y%M%d)
+  build-centos-8:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Centos 8 image
       run: |
         docker build --build-arg BASE_IMAGE=centos:8 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-8 .
@@ -34,24 +36,48 @@ jobs:
         docker push davidhessler/awstoe:centos-8
         docker images
         docker push davidhessler/awstoe:centos-8-$(date +%Y%M%d)
+  build-ubuntu-lts:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Ubuntu LTS image
       run: |
         docker build --build-arg BASE_IMAGE=ubuntu:rolling --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-lts .
         docker tag davidhessler/awstoe:ubuntu-lts davidhessler/awstoe:ubuntu-lts-$(date +%Y%M%d)
         docker push davidhessler/awstoe:ubuntu-lts
         docker push davidhessler/awstoe:ubuntu-lts-$(date +%Y%M%d)
+  build-ubuntu-16:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Ubuntu 16 image
       run: |
         docker build --build-arg BASE_IMAGE=ubuntu:xenial --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-xenial .
         docker tag davidhessler/awstoe:ubuntu-xenial davidhessler/awstoe:ubuntu-xenial-$(date +%Y%M%d)
         docker push davidhessler/awstoe:ubuntu-xenial
         docker push davidhessler/awstoe:ubuntu-xenial-$(date +%Y%M%d)
+  build-ubuntu-18:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Ubuntu 18 image
       run: | 
         docker build --build-arg BASE_IMAGE=ubuntu:bionic --file Dockerfile-ubuntu --tag davidhessler/awstoe:ubuntu-bionic .
         docker tag davidhessler/awstoe:ubuntu-bionic davidhessler/awstoe:ubuntu-bionic-$(date +%Y%M%d)
         docker push davidhessler/awstoe:ubuntu-bionic
         docker push davidhessler/awstoe:ubuntu-bionic-$(date +%Y%M%d)
+  build-amazon-linux-2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login into Docker Hub
+      run: docker login -u $DOCKER_USER -p $DOCKER_TOKEN
     - name: Build the Amazon Linux 2 image
       run: | 
         docker build --build-arg BASE_IMAGE=amazonlinux:latest --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:amazonlinux .
