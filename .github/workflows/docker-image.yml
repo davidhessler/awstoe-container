@@ -21,6 +21,7 @@ jobs:
       run: |
         docker build --build-arg BASE_IMAGE=centos:7 --file Dockerfile-centos-amazonlinux --tag davidhessler/awstoe:centos-7 .
         docker tag davidhessler/awstoe:centos-7 davidhessler/awstoe:centos-7-$(date +%Y%M%d)
+        docker images
         docker push davidhessler/awstoe:centos-7
         docker push davidhessler/awstoe:centos-7-$(date +%Y%M%d)
   build-centos-8:
